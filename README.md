@@ -1,4 +1,5 @@
 
+
 <div align="center">
 
   <img src="dashboard/public/logo.png" alt="Scancrypt Logo" width="300" />
@@ -115,3 +116,4 @@ npm run dev
 <div align="center">
   <sub>Built with 💜 by Team Scancrypt for Hacknova</sub>
 </div>
+
