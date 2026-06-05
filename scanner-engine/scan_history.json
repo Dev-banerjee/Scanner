@@ -1,0 +1,25 @@
+[
+  {
+    "scan_id": "87294b96-3824-4058-b1c4-354dd375b417",
+    "target": "http://localhost:8081",
+    "timestamp": "2026-01-16T20:15:39.527258",
+    "start_time": "2026-01-16T20:14:38.758378",
+    "end_time": "2026-01-16T20:15:39.527258",
+    "duration": "1m 0s",
+    "findings_count": 0,
+    "severity_counts": {
+      "Critical": 0,
+      "High": 0,
+      "Medium": 0,
+      "Low": 0,
+      "Info": 0
+    },
+    "critical_high_count": 0,
+    "crawled_urls_count": 1,
+    "stealth_mode": false,
+    "findings": [],
+    "crawled_urls": [
+      "http://localhost:8081"
+    ]
+  }
+]
