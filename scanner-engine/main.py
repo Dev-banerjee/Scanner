@@ -31,7 +31,7 @@ else:
 # In-memory fallback storage
 scan_results: Dict[str, Any] = {}
 
-app = FastAPI(title="Scancrypt API", version="2.0")
+app = FastAPI(title="Verse Scan API", version="2.0")
 
 # CORS - Allow all origins for now
 app.add_middleware(
@@ -305,7 +305,19 @@ async def get_report(scan_id: str):
         if not scan_data or "error" in scan_data:
             return {"error": "Scan not found"}
         
-        # 2. Generate PDF
+        # 2. Compute risk score
+        findings = scan_data.get('findings', [])
+        scan_data['risk_score'] = PDFReport.compute_risk_score(findings)
+
+        # 3. Ensure crawled_urls is populated
+        if not scan_data.get('crawled_urls'):
+            scan_data['crawled_urls'] = []
+
+        # 4. Set target field for report generator
+        if not scan_data.get('target'):
+            scan_data['target'] = scan_data.get('target_url', 'Unknown')
+        
+        # 5. Generate PDF
         pdf = PDFReport()
         filename = f"report_{scan_id}.pdf"
         
@@ -329,15 +341,14 @@ async def get_report(scan_id: str):
             err_pdf.set_font('Arial', 'B', 16)
             err_pdf.cell(0, 10, "Report Generation Failed", 0, 1)
             err_pdf.set_font('Arial', '', 12)
-            err_pdf.multi_cell(0, 10, f"An error occurred while generating the report:\n{str(e)}\n\nPlease checks server logs.")
+            err_pdf.multi_cell(0, 10, f"An error occurred while generating the report:\n{str(e)}\n\nPlease check server logs.")
             err_pdf.output(filename)
         
-        # 3. Form readable download name
-        # Safe target name
+        # 6. Form readable download name
         target_raw = scan_data.get('target', scan_data.get('target_url', 'target') or 'target')
         target = str(target_raw).replace('http://', '').replace('https://', '').replace('/', '_').replace(':', '')
         date_str = datetime.now().strftime("%Y%m%d")
-        readable_name = f"Scancrypt_Report_{target}_{date_str}.pdf"
+        readable_name = f"VerseScan_Report_{target}_{date_str}.pdf"
         
         return FileResponse(
             filename, 
