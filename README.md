@@ -1,8 +1,7 @@
 
-
 <div align="center">
 
-  <img src="dashboard/public/logo.png" alt="Scancrypt Logo" width="300" />
+  <img src="dashboard/public/logo.png" alt="versescan Logo" width="300" />
   
   [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=25&pause=1000&color=22D3EE&center=true&vCenter=true&width=500&lines=The+Future+of+Vulnerability+Scanning;AI-Driven.+Fast.+Secure.;Breaking+Barriers%2C+Not+Just+Code.)](https://git.io/typing-svg)
 
@@ -26,7 +25,7 @@
 ## 🚀 Motto
 > **"Safety First."**
 > 
-> We believe security tools shouldn't look like spreadsheets from 1999. Scancrypt combines **Enterprise-Grade Scanning** with a **Cyberpunk Interface** to make security audits fast, intuitive, and powerful.
+> We believe security tools shouldn't look like spreadsheets from 1999. versescan combines **Enterprise-Grade Scanning** with a **Cyberpunk Interface** to make security audits fast, intuitive, and powerful.
 
 ---
 
@@ -44,9 +43,9 @@
 
 ---
 
-## 🆚 Why Scancrypt?
+## 🆚 Why versescan?
 
-| Comparison | <img src="dashboard/public/logo.png" width="20"/> **Scancrypt** | 🐢 **Legacy Scanners** |
+| Comparison | <img src="dashboard/public/logo.png" width="20"/> **versescan** | 🐢 **Legacy Scanners** |
 | :--- | :---: | :---: |
 | **Speed** | ⚡ **Real-Time Async** | ⏳ Single-Threaded / Slow |
 | **Interface** | 🌌 **Cyber Glass** | 📄 Boring Tables |
@@ -61,7 +60,6 @@
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/AdityaGupta32/Scanner.git
-
 ```
 
 ### 2. Backend Setup (Scanner Engine)
@@ -101,12 +99,12 @@ npm run dev
       <b>Satyam Mishra</b>
     </td>
     <td align="center">
-      <img src="https://ui-avatars.com/api/?name=Aditya+Gond&background=f472b6&color=fff" width="100px;" alt=""/><br />
-      <b>Aditya Gond</b>
+      <img src="https://ui-avatars.com/api/?name=Dev+Banerjee&background=34d399&color=000" width="100px;" alt=""/><br />
+      <b>Dev Banerjee</b>
     </td>
     <td align="center">
-      <img src="https://ui-avatars.com/api/?name=Ashutosh+Baharti&background=34d399&color=000" width="100px;" alt=""/><br />
-      <b>Ashutosh Baharti</b>
+      <img src="https://ui-avatars.com/api/?name=Aditya+Gond&background=f472b6&color=fff" width="100px;" alt=""/><br />
+      <b>Aditya Gond</b>
     </td>
   </tr>
 </table>
@@ -114,6 +112,6 @@ npm run dev
 ---
 
 <div align="center">
-  <sub>Built with 💜 by Team Scancrypt for Hacknova</sub>
+  <sub>Built with 💜 by Team versescan for Hacknova</sub>
 </div>
 
