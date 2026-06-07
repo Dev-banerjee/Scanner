@@ -1,0 +1,241 @@
+@import "tailwindcss";
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+  /* Safe area insets for notched phones */
+  --sat: env(safe-area-inset-top);
+  --sar: env(safe-area-inset-right);
+  --sab: env(safe-area-inset-bottom);
+  --sal: env(safe-area-inset-left);
+
+  /* Theme variables - Dark Mode (Default) */
+  --background-hex: #050505;
+  --color-white-theme: #ffffff;
+  --color-black-theme: #000000;
+  --color-bg-base-theme: #050505;
+  --color-bg-inner-theme: rgba(10, 10, 10, 0.5);
+  --color-bg-sidebar-theme: #030303;
+  --color-bg-card-theme: #151515;
+  
+  --panel-bg: rgba(255, 255, 255, 0.05);
+  --panel-border: rgba(255, 255, 255, 0.1);
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(255, 255, 255, 0.05);
+  --card-hover-bg: rgba(255, 255, 255, 0.1);
+  --button-bg: rgba(255, 255, 255, 0.1);
+  --button-hover-bg: rgba(255, 255, 255, 0.15);
+  --button-border: rgba(255, 255, 255, 0.2);
+  --glow-color: rgba(255, 255, 255, 0.3);
+
+  --aurora-1: rgba(29, 78, 216, 0.15);
+  --aurora-2: rgba(124, 58, 237, 0.15);
+  --aurora-3: rgba(236, 72, 153, 0.1);
+  --aurora-4: rgba(16, 185, 129, 0.1);
+}
+
+:root[data-theme="light"],
+.light {
+  --background: #f5f5f7;
+  --foreground: #1d1d1f;
+
+  /* Theme variables - Light Mode */
+  --background-hex: #f5f5f7;
+  --color-white-theme: #121212;
+  --color-black-theme: #ffffff;
+  --color-bg-base-theme: #f4f4f7;
+  --color-bg-inner-theme: rgba(255, 255, 255, 0.6);
+  --color-bg-sidebar-theme: #fdfdfd;
+  --color-bg-card-theme: #ffffff;
+  
+  --panel-bg: rgba(0, 0, 0, 0.03);
+  --panel-border: rgba(0, 0, 0, 0.08);
+  --card-bg: rgba(0, 0, 0, 0.02);
+  --card-border: rgba(0, 0, 0, 0.04);
+  --card-hover-bg: rgba(0, 0, 0, 0.05);
+  --button-bg: rgba(0, 0, 0, 0.06);
+  --button-hover-bg: rgba(0, 0, 0, 0.10);
+  --button-border: rgba(0, 0, 0, 0.12);
+  --glow-color: rgba(0, 0, 0, 0.1);
+
+  --aurora-1: rgba(59, 130, 246, 0.08);
+  --aurora-2: rgba(139, 92, 246, 0.08);
+  --aurora-3: rgba(244, 63, 94, 0.05);
+  --aurora-4: rgba(16, 185, 129, 0.05);
+}
+
+@theme {
+  --color-white: var(--color-white-theme);
+  --color-black: var(--color-black-theme);
+  --color-bg-base: var(--color-bg-base-theme);
+  --color-bg-inner: var(--color-bg-inner-theme);
+  --color-bg-sidebar: var(--color-bg-sidebar-theme);
+  --color-bg-card: var(--color-bg-card-theme);
+
+  --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  --font-body: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+}
+
+@layer utilities {
+  .glass-panel {
+    background-color: var(--panel-bg);
+    backdrop-filter: blur(40px);
+    border: 1px solid var(--panel-border);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  }
+
+  .glass-card {
+    background-color: var(--card-bg);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--card-border);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .glass-card:hover {
+    background-color: var(--card-hover-bg);
+  }
+
+  .glass-button {
+    background-color: var(--button-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--button-border);
+    transition: all 0.2s ease-out;
+  }
+  .glass-button:hover {
+    background-color: var(--button-hover-bg);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px var(--glow-color);
+  }
+
+  .aurora-bg {
+    background: var(--background-hex);
+    background-image:
+      radial-gradient(at 0% 0%, var(--aurora-1) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, var(--aurora-2) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, var(--aurora-3) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, var(--aurora-4) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  /* Safe area utilities */
+  .safe-area-top {
+    padding-top: max(0.75rem, var(--sat));
+  }
+
+  .safe-area-bottom {
+    padding-bottom: max(1rem, var(--sab));
+  }
+
+  /* Custom Scrollbar for Glass UI */
+  .glass-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .glass-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .glass-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--panel-border);
+    border-radius: 9999px;
+  }
+  .glass-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: var(--button-border);
+  }
+
+  /* Touch-friendly tap targets */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Prevent text selection on mobile UI */
+  .no-select {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  /* Smooth momentum scrolling on iOS */
+  .scroll-smooth-ios {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background-color: var(--background-hex);
+  color: var(--color-white);
+  min-height: 100vh;
+  min-height: 100dvh;
+  /* Dynamic viewport height for mobile */
+  font-family: var(--font-body);
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  /* Remove tap highlight on mobile */
+  overscroll-behavior-y: contain;
+  /* Prevent pull-to-refresh interference */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.022em;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 1023px) {
+
+  /* Ensure buttons are touch-friendly */
+  button,
+  a,
+  [role="button"] {
+    min-height: 44px;
+  }
+
+  /* Better input styling on mobile */
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+    /* Prevents zoom on iOS */
+  }
+}
+
+/* Animations */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 10px currentColor;
+  }
+
+  50% {
+    box-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
