@@ -1,7 +1,7 @@
 
 <div align="center">
 
-  <img src="dashboard/public/logo.png" alt="versescan Logo" width="300" />
+  <img src="dashboard/public/logo.svg" alt="versescan Logo" width="450" />
   
   [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=25&pause=1000&color=22D3EE&center=true&vCenter=true&width=500&lines=The+Future+of+Vulnerability+Scanning;AI-Driven.+Fast.+Secure.;Breaking+Barriers%2C+Not+Just+Code.)](https://git.io/typing-svg)
 
@@ -45,7 +45,7 @@
 
 ## 🆚 Why versescan?
 
-| Comparison | <img src="dashboard/public/logo.png" width="20"/> **versescan** | 🐢 **Legacy Scanners** |
+| Comparison | <img src="dashboard/public/logo.svg" width="20"/> **versescan** | 🐢 **Legacy Scanners** |
 | :--- | :---: | :---: |
 | **Speed** | ⚡ **Real-Time Async** | ⏳ Single-Threaded / Slow |
 | **Interface** | 🌌 **Cyber Glass** | 📄 Boring Tables |
