@@ -368,6 +368,13 @@ async def debug_scans():
         "supabase_connected": supabase is not None
     }
 
+@app.get("/ping")
+def ping():
+    """Ultra-minimal keep-alive endpoint for cron-job.org.
+    Returns plain text 'pong' to stay under response size limits."""
+    from fastapi.responses import PlainTextResponse
+    return PlainTextResponse("pong")
+
 @app.get("/")
 def health_check():
     """Health check endpoint"""

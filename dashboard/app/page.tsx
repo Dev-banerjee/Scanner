@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shield, Activity, Lock, Smartphone, Globe, ChevronRight, Command, Key, User, Eye, EyeOff } from "lucide-react";
@@ -14,6 +14,37 @@ export default function Home() {
   const [targetUrl, setTargetUrl] = useState("");
   const [isScanning, setIsScanning] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [backendStatus, setBackendStatus] = useState<"checking" | "online" | "waking" | "offline">("checking");
+
+  // Wake up backend on page load
+  useEffect(() => {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+    let cancelled = false;
+
+    const wakeBackend = async (attempt = 1): Promise<void> => {
+      if (cancelled) return;
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000);
+        const res = await fetch(`${apiUrl}/ping`, { signal: controller.signal });
+        clearTimeout(timeout);
+        if (res.ok && !cancelled) {
+          setBackendStatus("online");
+        }
+      } catch {
+        if (cancelled) return;
+        if (attempt <= 3) {
+          setBackendStatus("waking");
+          await new Promise(r => setTimeout(r, 3000));
+          return wakeBackend(attempt + 1);
+        }
+        setBackendStatus("offline");
+      }
+    };
+
+    wakeBackend();
+    return () => { cancelled = true; };
+  }, []);
 
   // Auth config
   const [showAuthConfig, setShowAuthConfig] = useState(false);
@@ -90,9 +121,13 @@ export default function Home() {
       router.push(`/live-activity?scanId=${data.scan_id}`);
     } catch (err) {
       console.error("Scan error:", err);
-      setError("Failed to start scan. Make sure backend is running.");
+      if (backendStatus !== "online") {
+        setError("Backend is still waking up. Please wait a moment and try again.");
+      } else {
+        setError("Failed to start scan. Please try again.");
+      }
       setIsScanning(false);
-      setTimeout(() => setError(null), 5000); // Auto-dismiss after 5s
+      setTimeout(() => setError(null), 7000);
     }
   };
 
@@ -105,8 +140,34 @@ export default function Home() {
         <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-emerald-600/5 rounded-full blur-[120px]" />
       </div>
 
-      {/* Toast Notification */}
+      {/* Toast Notifications */}
       <AnimatePresence>
+        {backendStatus === "waking" && !error && (
+          <motion.div
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            className="fixed top-6 left-1/2 -translate-x-1/2 z-50"
+          >
+            <div className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-amber-500/15 border border-amber-500/25 backdrop-blur-xl shadow-2xl">
+              <div className="w-4 h-4 border-2 border-amber-400/30 border-t-amber-400 rounded-full animate-spin" />
+              <span className="text-sm font-medium text-amber-200">Waking up backend server...</span>
+            </div>
+          </motion.div>
+        )}
+        {backendStatus === "offline" && !error && (
+          <motion.div
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            className="fixed top-6 left-1/2 -translate-x-1/2 z-50"
+          >
+            <div className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-red-500/15 border border-red-500/25 backdrop-blur-xl shadow-2xl">
+              <div className="w-2 h-2 rounded-full bg-red-400" />
+              <span className="text-sm font-medium text-red-200">Backend server is unreachable. Scans may not work.</span>
+            </div>
+          </motion.div>
+        )}
         {error && (
           <motion.div
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
