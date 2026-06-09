@@ -1,6 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
+# ========================
+# Dependencies
+# ========================
 node_modules/
 /node_modules
 /.pnp
@@ -12,44 +14,83 @@ node_modules/
 !.yarn/versions
 venv/
 
+# ========================
 # Python
+# ========================
 __pycache__/
 *.py[cod]
 *$py.class
 
-# testing
+# ========================
+# Testing
+# ========================
 /coverage
 
-# next.js / production
-/.next/
+# ========================
+# Next.js / Production
+# ========================
+.next/
 /out/
 /build
 dist/
 build/
 
-# misc / OS
-.DS_Store
-Thumbs.db
-*.pem
+# ========================
+# Environment Variables
+# ========================
+# Ignore ALL .env files (they contain secrets)
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
 
-# debug
+# EXCEPT .env.example files (safe templates for collaborators)
+!.env.example
+
+# ========================
+# Generated Reports (PDFs)
+# ========================
+scanner-engine/report_*.pdf
+scanner-engine/final_test_report.pdf
+
+# ========================
+# Log / Debug Files
+# ========================
+scanner-engine/error_log.json
+scanner-engine/error_log.txt
+scanner-engine/scan_history.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files
-.env
-.env*
+# ========================
+# OS Files
+# ========================
+.DS_Store
+Thumbs.db
+*.pem
 
-# vercel
+# ========================
+# Vercel
+# ========================
 .vercel
 
-# typescript
+# ========================
+# TypeScript
+# ========================
 *.tsbuildinfo
 next-env.d.ts
 
+# ========================
 # IDEs
+# ========================
 .vscode/
 .idea/
 *.swp
+*.swo
+*~
