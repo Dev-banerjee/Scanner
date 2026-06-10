@@ -1,4 +1,4 @@
-
+## Contributor - Dev Banerjee
 <div align="center">
 
   <img src="dashboard/public/logo.svg" alt="versescan Logo" width="450" />
